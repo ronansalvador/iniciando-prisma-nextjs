@@ -85,3 +85,36 @@ export async function PUT(req: Request) {
     )
   }
 }
+
+export async function PATCH(req: Request) {
+  console.log('PATCH passou aqui')
+  try {
+    const { id, cliente, data, servico } = await req.json()
+    const updateData = {}
+
+    if (cliente !== undefined) {
+      updateData.cliente = cliente
+    }
+    if (data !== undefined) {
+      updateData.data = new Date(data)
+    }
+    if (servico !== undefined) {
+      updateData.servico = servico
+    }
+
+    const agendamento = await prisma.agendamento.update({
+      where: { id: Number(id) },
+      data: updateData,
+    })
+    console.log('agendamento atualizado', agendamento)
+    return NextResponse.json({ agendamento })
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: 'error',
+        error,
+      },
+      { status: 500 },
+    )
+  }
+}
