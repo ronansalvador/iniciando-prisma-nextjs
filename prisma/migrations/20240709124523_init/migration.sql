@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "Agendamento" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "cliente" TEXT NOT NULL,
+    "data" DATETIME NOT NULL,
+    "servico" TEXT NOT NULL,
+    "criadoEm" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "atualizadoEm" DATETIME NOT NULL
+);
