@@ -16,3 +16,27 @@ export async function GET(req: Request) {
     )
   }
 }
+
+export async function POST(req: Request) {
+  console.log('POST passou aqui')
+  try {
+    const { cliente, data, servico } = await req.json()
+    const agendamento = await prisma.agendamento.create({
+      data: {
+        cliente,
+        data: new Date(data),
+        servico,
+      },
+    })
+    console.log('agendamento', agendamento)
+    return Response.json({ agendamento })
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: 'error',
+        error,
+      },
+      { status: 500 },
+    )
+  }
+}
